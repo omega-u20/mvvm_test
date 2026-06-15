@@ -62,4 +62,30 @@ class TaskViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+  // 4. Update existing data in Supabase
+  Future<void> updateTask(int id, String newTitle) async {
+    if (newTitle.trim().isEmpty) return; // Prevent empty updates
+
+    try {
+      // Tell Supabase to update the title where the id matches
+      await _supabase.from('tasks').update({
+        'title': newTitle.trim(),
+      }).eq('id', id);
+
+      // Find the task locally and update it so the UI reflects the change instantly
+      final index = _tasks.indexWhere((task) => task.id == id);
+      if (index != -1) {
+        // We create a new Task object with the new title
+        _tasks[index] = Task(
+          id: _tasks[index].id,
+          title: newTitle.trim(),
+          isCompleted: _tasks[index].isCompleted,
+        );
+        notifyListeners(); // Alert the View to rebuild
+      }
+    } catch (e) {
+      _errorMessage = "Failed to update task: $e";
+      notifyListeners();
+    }
+  }
 }
