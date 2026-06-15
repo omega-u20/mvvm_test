@@ -5,7 +5,7 @@ class Task {
 
   Task({required this.id, required this.title, required this.isCompleted});
 
-  // Factory method to map Supabase JSON response to our Dart object
+  // Factory method to map Supabase JSON response to Dart object
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(
       id: json['id'],

@@ -7,7 +7,6 @@ import 'views/task_view.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Replace with your actual Supabase credentials
   await Supabase.initialize(
     url: 'https://jszbqzyavcetokrnifml.supabase.co',
     publishableKey: 'sb_publishable_DRPWqBaxqnzoNm1oN-hwkA_JDh3u1lk',
